@@ -1,10 +1,21 @@
 {
 	"name": "switch-theme",
-	"displayName": "解决没有窗帘的痛苦~",
-	"publisher": "gszs",
+	"displayName": "在不同的时间段内应用不同的主题",
+	"publisher": "GSZS",
 	"description": "test-make-VSCode-extension",
 	"qna": false,
-	"version": "0.0.1",
+	"version": "0.1.0",
+	"homepage": "https://github.com/GSZS/switch-theme",
+	"bugs": {
+		"url": "https://github.com/GSZS/switch-theme/issues"
+	},
+	"keywords": [
+		"theme",
+		"vscode",
+		"vscode-extension",
+		"switch theme"
+	],
+	"icon": "assets/switch-theme.png",
 	"engines": {
 		"vscode": "^1.49.0"
 	},
@@ -47,11 +58,11 @@
 							"fromTime": 51
 						}
 					],
-					"description": "设置切换时的主题配置, useTheme(需要切换的主题) , fromTime(下一个时间点)"
+					"description": "设置时间区间"
 				},
 				"switchTheme.closeSwitch": {
 					"type": "boolean",
-					"default": true,
+					"default": false,
 					"description": "设置是否关闭集成"
 				}
 			}
@@ -86,5 +97,6 @@
 	"_id": "vscode-switch-theme@0.1.0",
 	"dependencies": {
 		"dayjs": "^1.9.1"
-	}
+	},
+  "license": "MIT"
 }
