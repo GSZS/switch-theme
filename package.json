@@ -1,0 +1,90 @@
+{
+	"name": "switch-theme",
+	"displayName": "解决没有窗帘的痛苦~",
+	"publisher": "gszs",
+	"description": "test-make-VSCode-extension",
+	"qna": false,
+	"version": "0.0.1",
+	"engines": {
+		"vscode": "^1.49.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"*"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+		"configuration": {
+			"type": "object",
+			"title": "Switch Theme",
+			"properties": {
+				"switchTheme.startTime": {
+					"type": "string",
+					"default": "21:00",
+					"description": "设置起始时间"
+				},
+				"switchTheme.defaultTheme": {
+					"type": "string",
+					"default": "Dark",
+					"description": "设置当前时间没有匹配任何时间段时设置的主题名称"
+				},
+				"switchTheme.interval": {
+					"type": "number",
+					"default": "1",
+					"description": "设置定时器的检查间隔(单位/S)"
+				},
+				"switchTheme.switchThemeOptions": {
+					"type": "array",
+					"default": [
+						{
+							"useTheme": "Plastic",
+							"fromTime": 50
+						},
+						{
+							"useTheme": "Github Light Theme",
+							"fromTime": 51
+						}
+					],
+					"description": "设置切换时的主题配置, useTheme(需要切换的主题) , fromTime(下一个时间点)"
+				},
+				"switchTheme.closeSwitch": {
+					"type": "boolean",
+					"default": true,
+					"description": "设置是否关闭集成"
+				}
+			}
+		},
+		"commands":[
+			{
+				"command": "switchTheme.gszs",
+				"title": "测试获取首选项中的配置值"
+			}
+		]
+	},
+	"scripts": {
+		"vscode:prepublish": "yarn run compile",
+		"compile": "tsc -p ./",
+		"lint": "eslint src --ext ts",
+		"watch": "tsc -watch -p ./",
+		"pretest": "yarn run compile && yarn run lint"
+	},
+	"devDependencies": {
+		"@types/glob": "^7.1.3",
+		"@types/mocha": "^8.0.0",
+		"@types/node": "^12.11.7",
+		"@types/vscode": "^1.49.0",
+		"@typescript-eslint/eslint-plugin": "^4.1.1",
+		"@typescript-eslint/parser": "^4.1.1",
+		"eslint": "^7.9.0",
+		"glob": "^7.1.6",
+		"mocha": "^8.1.3",
+		"typescript": "^4.0.2",
+		"vscode-test": "^1.4.0"
+	},
+	"_id": "vscode-switch-theme@0.1.0",
+	"dependencies": {
+		"dayjs": "^1.9.1"
+	}
+}
