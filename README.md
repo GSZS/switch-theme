@@ -28,11 +28,13 @@
 ```
 
 ### **switchThemeOptions**的详细配置
+- useTheme 主题名称
+- fromTime 距离起始时间(单位/M) , 例如当前设置的是50分钟，那么这个时间段就是(起始时间,起始时间+50分钟)
 ```json
 "switchTheme.switchThemeOptions": [
   {
-    "useTheme": "Plastic", // 主题名称
-	"fromTime": 50     // 距离起始时间(单位/M) , 例如当前设置的是50分钟，那么这个时间段就是(起始时间,起始时间+50分钟)
+    "useTheme": "Plastic", 
+    "fromTime": 50     
   },
   {
     "useTheme": "Github Light Theme",
