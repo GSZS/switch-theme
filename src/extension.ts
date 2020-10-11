@@ -1,11 +1,8 @@
-import { window, ExtensionContext, ConfigurationChangeEvent, workspace } from 'vscode';
+import { window, ExtensionContext, ConfigurationChangeEvent, workspace, commands } from 'vscode';
 import { SwitchTheme } from './switchCore';
 
 const switchTheme = new SwitchTheme();
 
-function check() {
-  switchTheme.checkOnTime();
-}
 
 function configChanged(event: ConfigurationChangeEvent) {
   const sundialConfig = event.affectsConfiguration('switchTheme');
@@ -16,13 +13,18 @@ function configChanged(event: ConfigurationChangeEvent) {
 }
 
 export function activate(context: ExtensionContext) {
-	window.showInformationMessage('👏插件安装成功');
-	switchTheme.enableExtension();
+  window.showInformationMessage('👏  自动切换Theme插件安装成功');
 
-	// context.subscriptions.push(window.onDidChangeWindowState(check));
-  // context.subscriptions.push(window.onDidChangeActiveTextEditor(check));
-  // context.subscriptions.push(window.onDidChangeTextEditorViewColumn(check));
   context.subscriptions.push(workspace.onDidChangeConfiguration(configChanged));
+  commands.registerCommand('switchTheme.closeSwitch', () => { 
+    window.showInformationMessage('🚫 关闭自动切换Theme插件');
+    switchTheme.disableExtension()
+  })
+  commands.registerCommand('switchTheme.openSwitch', () => { 
+    window.showInformationMessage('✅ 开启切换Theme插件');
+    switchTheme.enableExtension()
+  })
+  switchTheme.enableExtension();
 }
 
 export function deactivate() {

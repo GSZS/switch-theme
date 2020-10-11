@@ -108,7 +108,6 @@ export class SwitchTheme {
     
     // 获取到应该设置的主题
     const currentTimeObj = await this.getCurrentTime();
-    console.log('打印日志=>>>', currentTimeObj);
     editConfig.switchThemeHandle(currentTimeObj);
     this.isRunning = false;
     this.getIntervalTime();

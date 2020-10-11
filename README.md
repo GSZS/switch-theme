@@ -13,7 +13,6 @@
  defaultTheme | 设置当前时间没有匹配任何时间段时应用的主题 | string | Dark
  interval | 设置定时器的检查间隔(单位/S) | number | 1
  switchThemeOptions | 设置时间区间 | array | []
- closeSwitch | 关闭扩展 | boolean | false
 
 <br /><br />
 
