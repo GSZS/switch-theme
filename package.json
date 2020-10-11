@@ -17,7 +17,7 @@
 	],
 	"icon": "assets/switch-theme.png",
 	"engines": {
-		"vscode": "^1.49.0"
+		"vscode": "^1.44.0"
 	},
 	"categories": [
 		"Other"
@@ -27,6 +27,16 @@
 	],
 	"main": "./out/extension.js",
 	"contributes": {
+		"commands":[
+			{
+				"command": "switchTheme.closeSwitch",
+				"title": "switchTheme: 关闭自动切换主题"
+			},
+			{
+				"command": "switchTheme.openSwitch",
+				"title": "switchTheme: 开启自动切换主题"
+			}
+		],
 		"configuration": {
 			"type": "object",
 			"title": "Switch Theme",
@@ -59,20 +69,9 @@
 						}
 					],
 					"description": "设置时间区间"
-				},
-				"switchTheme.closeSwitch": {
-					"type": "boolean",
-					"default": false,
-					"description": "设置是否关闭集成"
 				}
 			}
-		},
-		"commands":[
-			{
-				"command": "switchTheme.gszs",
-				"title": "测试获取首选项中的配置值"
-			}
-		]
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "yarn run compile",
