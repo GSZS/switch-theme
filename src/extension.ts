@@ -18,8 +18,6 @@ function configChanged(event: ConfigurationChangeEvent) {
 }
 
 export function activate(context: ExtensionContext) {
-  window.showInformationMessage('👏  自动切换Theme插件安装成功')
-
   context.subscriptions.push(
     workspace.onDidChangeConfiguration(configChanged),
   )
