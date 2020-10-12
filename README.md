@@ -26,8 +26,10 @@
 ```
 
 ### **switchThemeOptions**的详细配置
-- useTheme 主题名称
-- fromTime 距离起始时间(单位/M) , 例如当前设置的是50分钟，那么这个时间段就是(起始时间,起始时间+50分钟)
+
+**useTheme 主题名称** 
+
+ **fromTime 距离起始时间(单位/M) , 例如当前设置的是50分钟，那么这个时间段就是(起始时间,起始时间+50分钟)** 
 ```json
 "switchTheme.switchThemeOptions": [
   {
@@ -46,7 +48,7 @@
 ### **相关命令**
 
 **命令面板输入switchTheme然后在相应的配置中选择开关集成**
-![相关命令](assets/command.png)
+![相关命令](https://raw.githubusercontent.com/GSZS/switch-theme/main/assets/command.png)
 
 
 <br /><br />

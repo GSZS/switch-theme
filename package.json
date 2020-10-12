@@ -1,10 +1,10 @@
 {
 	"name": "switch-theme",
-	"displayName": "在不同的时间段内应用不同的主题",
+	"displayName": "switch-theme",
 	"publisher": "GSZS",
-	"description": "test-make-VSCode-extension",
+	"description": "在不同的时间段内应用不同的主题",
 	"qna": false,
-	"version": "0.1.0",
+	"version": "1.0.0-alpha",
 	"homepage": "https://github.com/GSZS/switch-theme",
 	"bugs": {
 		"url": "https://github.com/GSZS/switch-theme/issues"
@@ -43,12 +43,12 @@
 			"properties": {
 				"switchTheme.startTime": {
 					"type": "string",
-					"default": "21:00",
+					"default": "07:00",
 					"description": "设置起始时间"
 				},
 				"switchTheme.defaultTheme": {
 					"type": "string",
-					"default": "Dark",
+					"default": "Dafault Theme",
 					"description": "设置当前时间没有匹配任何时间段时设置的主题名称"
 				},
 				"switchTheme.interval": {
@@ -60,12 +60,8 @@
 					"type": "array",
 					"default": [
 						{
-							"useTheme": "Plastic",
-							"fromTime": 50
-						},
-						{
-							"useTheme": "Github Light Theme",
-							"fromTime": 51
+							"useTheme": "Dafault Theme",
+							"fromTime": 60
 						}
 					],
 					"description": "设置时间区间"
