@@ -1,11 +1,8 @@
-import {
-  WorkspaceConfiguration,
-  ExtensionContext,
-  window,
-} from 'vscode'
+import { WorkspaceConfiguration, ExtensionContext } from 'vscode'
 import dayjs from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 import * as editConfig from './configEdit'
+import { editStatusBarItem } from './statusBar'
 
 // 定义日出 | 日落接口
 export interface Sun {
@@ -31,6 +28,8 @@ export class SwitchTheme {
   // 储存时间段
   private timeList: Array<splitSettingTime> = []
   public static extensionContext: ExtensionContext
+  // 暂存缓存的主题名称
+  private cacheTheme = ''
 
   // 扩展格式化时间
   constructor() {
@@ -114,9 +113,14 @@ export class SwitchTheme {
     this.isRunning = true
     clearInterval(this.checkInterval)
 
-    // 获取到应该设置的主题
-    const currentTimeObj = await this.getCurrentTime()
-    editConfig.switchThemeHandle(currentTimeObj)
+    const currentTime = await this.getCurrentTime()
+    if (currentTime !== this.cacheTheme) {
+      // 切换主题
+      editConfig.switchThemeHandle(currentTime)
+      // 更换状态栏显示的当前Theme名称
+      editStatusBarItem(currentTime)
+    }
+    this.cacheTheme = currentTime
     this.isRunning = false
     this.getIntervalTime()
   }

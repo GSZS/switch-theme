@@ -7,7 +7,7 @@ export interface EditConfig {
   workbench: WorkspaceConfiguration
 }
 
-// 获取配置
+// 获取首选项中的配置
 export function getConfig(): EditConfig {
   const editSwitchTheme = workspace.getConfiguration(
     'switchTheme',
