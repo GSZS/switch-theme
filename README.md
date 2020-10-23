@@ -9,7 +9,7 @@
 
 配置名称 | 用途 | 类型 | 默认值
 ---------|----------|---------|---------
- defaultTheme | 设置当前时间没有匹配任何时间段时应用的主题 | string | Github Light Theme
+ defaultTheme | 设置当前时间没有匹配任何时间段时应用的主题 | string | Visual Studio Light
  interval | 设置定时器的检查间隔(单位/S) | number | 1
  switchThemeOptions | 设置时间区间 | array | 请看如下默认配置
 
@@ -17,14 +17,19 @@
 
 ### **默认配置**
 ```json
-"switchTheme.defaultTheme": "Github Light Theme",
+"switchTheme.defaultTheme": "Light",
 "switchTheme.interval": 1,
 "switchTheme.closeSwitch": false
 "switchTheme.switchThemeOptions": [
   {
-    "useTheme": "Github Light Theme",
+    "useTheme": "Visual Studio Light",
     "startTime": "07:00",
-    "endTime":  "16:00"
+    "endTime": "09:00"
+  },
+  {
+    "useTheme": "Visual Studio Dark",
+    "startTime": "09:00",
+    "endTime": "22:00"
   }
 ]
 ```
@@ -47,14 +52,14 @@
 ```json
 "switchTheme.switchThemeOptions": [
   {
-    "useTheme": "Github Light Theme",
+    "useTheme": "Visual Studio Light",
     "startTime": "07:00",
-    "endTime":  "09:00"
+    "endTime": "09:00"
   },
   {
-    "useTheme": "Plastic",
+    "useTheme": "Visual Studio Dark",
     "startTime": "09:00",
-    "endTime":  "12:00"
+    "endTime": "22:00"
   }
 ]
 ```

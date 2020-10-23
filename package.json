@@ -4,7 +4,7 @@
 	"publisher": "GSZS",
 	"description": "在不同的时间段内应用不同的主题",
 	"qna": false,
-	"version": "2.0.0",
+	"version": "2.0.1",
 	"homepage": "https://github.com/GSZS/switch-theme",
 	"bugs": {
 		"url": "https://github.com/GSZS/switch-theme/issues"
@@ -43,7 +43,7 @@
 			"properties": {
 				"switchTheme.defaultTheme": {
 					"type": "string",
-					"default": "Github Light Theme",
+					"default": "Visual Studio Light",
 					"description": "设置当前时间没有匹配任何时间段时设置的主题名称"
 				},
 				"switchTheme.interval": {
@@ -55,14 +55,14 @@
 					"type": "array",
 					"default": [
 						{
-							"useTheme": "Github Light Theme",
+							"useTheme": "Visual Studio Light",
 							"startTime": "07:00",
-							"endTime":  "09:00"
+							"endTime": "09:00"
 						},
 						{
-							"useTheme": "Plastic",
+							"useTheme": "Visual Studio Dark",
 							"startTime": "09:00",
-							"endTime":  "12:00"
+							"endTime": "22:00"
 						}
 					],
 					"description": "设置应用Theme的时间区间，采用24(h)小时时间制"
