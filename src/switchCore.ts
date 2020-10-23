@@ -49,7 +49,7 @@ export class SwitchTheme {
     this.enable = false
   }
 
-  // 获取设置的间隔时间
+  // 获取设置的间隔检查时间
   public getIntervalTime() {
     const { editSwitchTheme } = editConfig.getConfig()
     if (editSwitchTheme.interval === 0) {
@@ -83,23 +83,18 @@ export class SwitchTheme {
   public settingToggleTime() {
     const { editSwitchTheme } = editConfig.getConfig()
     const { switchThemeOptions } = editSwitchTheme
-    const startTime = dayjs(editSwitchTheme.startTime, 'HH:mm')
 
     if (this.timeList.length > 0) {
       this.timeList = []
     }
     switchThemeOptions.map((switchObj, index) => {
-      // 处理fromTime转化为起始与结束区间
-      if (switchObj.fromTime) {
+      const startTime = dayjs(switchObj.startTime, 'HH:mm')
+      if (switchObj.endTime) {
         switchObj.startTime =
           this.timeList.length > 0
             ? this.timeList[index - 1].endTime
             : startTime
-        switchObj.endTime = startTime.add(
-          switchObj.fromTime,
-          'minute',
-        )
-        delete switchObj.fromTime
+        switchObj.endTime = dayjs(switchObj.endTime, 'HH:mm')
         this.timeList.push(switchObj)
       }
     })
