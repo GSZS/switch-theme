@@ -2,7 +2,6 @@ import { WorkspaceConfiguration, ExtensionContext } from 'vscode'
 import dayjs from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 import * as editConfig from './configEdit'
-import { editStatusBarItem } from './statusBar'
 
 // 定义日出 | 日落接口
 export interface Sun {
@@ -87,14 +86,22 @@ export class SwitchTheme {
     if (this.timeList.length > 0) {
       this.timeList = []
     }
-    switchThemeOptions.map((switchObj, index) => {
-      const startTime = dayjs(switchObj.startTime, 'HH:mm')
-      if (switchObj.endTime) {
-        switchObj.startTime =
-          this.timeList.length > 0
-            ? this.timeList[index - 1].endTime
-            : startTime
-        switchObj.endTime = dayjs(switchObj.endTime, 'HH:mm')
+    switchThemeOptions.map((switchObj) => {
+      const startTime: any = dayjs(switchObj.startTime, 'HH:mm'),
+        endTime: any = dayjs(switchObj.endTime, 'HH:mm')
+      // 开始时间比结束时间晚
+      if (startTime - endTime > 0) {
+        switchObj.startTime = startTime
+        switchObj.endTime = dayjs('24:00', 'HH:mm')
+        this.timeList.push(switchObj)
+
+        const _switchObj = Object.assign({}, switchObj)
+        _switchObj.startTime = dayjs('24:00', 'HH:mm')
+        _switchObj.endTime = endTime
+        this.timeList.push(_switchObj)
+      } else {
+        switchObj.startTime = startTime
+        switchObj.endTime = endTime
         this.timeList.push(switchObj)
       }
     })
@@ -108,14 +115,12 @@ export class SwitchTheme {
     this.isRunning = true
     clearInterval(this.checkInterval)
 
-    const currentTime = await this.getCurrentTime()
-    if (currentTime !== this.cacheTheme) {
+    const currentTheme = await this.getCurrentTime()
+    if (currentTheme !== this.cacheTheme) {
       // 切换主题
-      editConfig.switchThemeHandle(currentTime)
-      // 更换状态栏显示的当前Theme名称
-      editStatusBarItem(currentTime)
+      editConfig.switchThemeHandle(currentTheme)
     }
-    this.cacheTheme = currentTime
+    this.cacheTheme = currentTheme
     this.isRunning = false
     this.getIntervalTime()
   }
