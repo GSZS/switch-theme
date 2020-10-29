@@ -1,5 +1,6 @@
 import { workspace, WorkspaceConfiguration } from 'vscode'
 import { SwitchThemeConfig } from './switchCore'
+import { editStatusBarItem } from './statusBar'
 
 // 设置编辑器配置的接口
 export interface EditConfig {
@@ -7,7 +8,7 @@ export interface EditConfig {
   workbench: WorkspaceConfiguration
 }
 
-// 获取配置
+// 获取首选项中的配置
 export function getConfig(): EditConfig {
   const editSwitchTheme = workspace.getConfiguration(
     'switchTheme',
@@ -23,6 +24,9 @@ export function getConfig(): EditConfig {
 export function switchThemeHandle(newTheme: string): void {
   const { workbench } = getConfig()
   if (newTheme && newTheme !== workbench.colorTheme) {
-    workbench.update('colorTheme', newTheme, true)
+    workbench.update('colorTheme', newTheme, true).then(() => {
+      // 更换状态栏显示的当前Theme名称
+      editStatusBarItem(newTheme)
+    })
   }
 }

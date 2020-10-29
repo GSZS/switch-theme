@@ -1,8 +1,4 @@
-import {
-  WorkspaceConfiguration,
-  ExtensionContext,
-  window,
-} from 'vscode'
+import { WorkspaceConfiguration, ExtensionContext } from 'vscode'
 import dayjs from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 import * as editConfig from './configEdit'
@@ -31,6 +27,8 @@ export class SwitchTheme {
   // 储存时间段
   private timeList: Array<splitSettingTime> = []
   public static extensionContext: ExtensionContext
+  // 暂存缓存的主题名称
+  private cacheTheme = ''
 
   // 扩展格式化时间
   constructor() {
@@ -50,7 +48,7 @@ export class SwitchTheme {
     this.enable = false
   }
 
-  // 获取设置的间隔时间
+  // 获取设置的间隔检查时间
   public getIntervalTime() {
     const { editSwitchTheme } = editConfig.getConfig()
     if (editSwitchTheme.interval === 0) {
@@ -84,23 +82,26 @@ export class SwitchTheme {
   public settingToggleTime() {
     const { editSwitchTheme } = editConfig.getConfig()
     const { switchThemeOptions } = editSwitchTheme
-    const startTime = dayjs(editSwitchTheme.startTime, 'HH:mm')
 
     if (this.timeList.length > 0) {
       this.timeList = []
     }
-    switchThemeOptions.map((switchObj, index) => {
-      // 处理fromTime转化为起始与结束区间
-      if (switchObj.fromTime) {
-        switchObj.startTime =
-          this.timeList.length > 0
-            ? this.timeList[index - 1].endTime
-            : startTime
-        switchObj.endTime = startTime.add(
-          switchObj.fromTime,
-          'minute',
-        )
-        delete switchObj.fromTime
+    switchThemeOptions.map((switchObj) => {
+      const startTime: any = dayjs(switchObj.startTime, 'HH:mm'),
+        endTime: any = dayjs(switchObj.endTime, 'HH:mm')
+      // 开始时间比结束时间晚
+      if (startTime - endTime > 0) {
+        switchObj.startTime = startTime
+        switchObj.endTime = dayjs('24:00', 'HH:mm')
+        this.timeList.push(switchObj)
+
+        const _switchObj = Object.assign({}, switchObj)
+        _switchObj.startTime = dayjs('24:00', 'HH:mm')
+        _switchObj.endTime = endTime
+        this.timeList.push(_switchObj)
+      } else {
+        switchObj.startTime = startTime
+        switchObj.endTime = endTime
         this.timeList.push(switchObj)
       }
     })
@@ -114,9 +115,12 @@ export class SwitchTheme {
     this.isRunning = true
     clearInterval(this.checkInterval)
 
-    // 获取到应该设置的主题
-    const currentTimeObj = await this.getCurrentTime()
-    editConfig.switchThemeHandle(currentTimeObj)
+    const currentTheme = await this.getCurrentTime()
+    if (currentTheme !== this.cacheTheme) {
+      // 切换主题
+      editConfig.switchThemeHandle(currentTheme)
+    }
+    this.cacheTheme = currentTheme
     this.isRunning = false
     this.getIntervalTime()
   }
