@@ -2,8 +2,9 @@ import { WorkspaceConfiguration, ExtensionContext } from 'vscode'
 import dayjs from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 import * as editConfig from './configEdit'
+import { editStatusBarItem } from './statusBar'
 
-// 定义日出 | 日落接口
+// 定义开始时间 ｜ 结束时间
 export interface Sun {
   startTime: dayjs.Dayjs
   endTime: dayjs.Dayjs
@@ -120,6 +121,8 @@ export class SwitchTheme {
       // 切换主题
       editConfig.switchThemeHandle(currentTheme)
     }
+    // 更换状态栏显示的当前Theme名称
+    editStatusBarItem(currentTheme)
     this.cacheTheme = currentTheme
     this.isRunning = false
     this.getIntervalTime()

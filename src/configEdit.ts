@@ -24,9 +24,6 @@ export function getConfig(): EditConfig {
 export function switchThemeHandle(newTheme: string): void {
   const { workbench } = getConfig()
   if (newTheme && newTheme !== workbench.colorTheme) {
-    workbench.update('colorTheme', newTheme, true).then(() => {
-      // 更换状态栏显示的当前Theme名称
-      editStatusBarItem(newTheme)
-    })
+    workbench.update('colorTheme', newTheme, true)
   }
 }
